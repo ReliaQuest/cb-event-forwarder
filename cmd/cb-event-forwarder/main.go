@@ -32,7 +32,7 @@ import (
 var (
 	checkConfiguration = flag.Bool("check", false, "Check the configuration file and exit")
 	debug              = flag.Bool("debug", false, "Enable debugging mode")
-	checkInputPBZip    = flag.Bool("checkInputPB", false, "Enable check input pb mode")
+	checkInputPBZip    = flag.Bool("checkInput", false, "Enable check input pb mode")
 )
 
 var version = "NOT FOR RELEASE"
@@ -552,7 +552,7 @@ func main() {
 		}
 		os.Exit(0)
 	} else if *checkInputPBZip {
-		inputfile := flag.Args()[1]
+		inputfile := flag.Arg(1)
 		dat, err := ioutil.ReadFile(inputfile)
 		if err == nil {
 			headers := amqp.Table{}
@@ -561,6 +561,7 @@ func main() {
 			log.Error("Somethign went wrong trying to open pb bundle %s", inputfile)
 			log.Fatal(err)
 		}
+		os.Exit(0)
 	}
 
 	addrs, err := net.InterfaceAddrs()
