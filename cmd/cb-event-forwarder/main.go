@@ -557,6 +557,9 @@ func main() {
 		if err == nil {
 			headers := amqp.Table{}
 			processMessage(dat, "", "application/zip", headers, "api.rawsesnsordata")
+		} else {
+			log.Error("Somethign went wrong trying to open pb bundle %s", inputfile)
+			log.Fatal(err)
 		}
 	}
 
